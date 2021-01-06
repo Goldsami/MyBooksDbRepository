@@ -1,0 +1,5 @@
+D:\Proga\Projects\MyBooksDb\DAL\bin\Debug\netstandard2.0\DAL.deps.json
+D:\Proga\Projects\MyBooksDb\DAL\bin\Debug\netstandard2.0\DAL.dll
+D:\Proga\Projects\MyBooksDb\DAL\obj\Debug\netstandard2.0\DAL.csprojAssemblyReference.cache
+D:\Proga\Projects\MyBooksDb\DAL\obj\Debug\netstandard2.0\DAL.AssemblyInfoInputs.cache
+D:\Proga\Projects\MyBooksDb\DAL\obj\Debug\netstandard2.0\DAL.AssemblyInfo.cs

@@ -24,5 +24,12 @@ namespace DAL.Context
                 .UseLazyLoadingProxies()
                 .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=mybooksdb;Trusted_Connection=True;");
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.NickName)
+                .IsUnique();
+        }
     }
 }

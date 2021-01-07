@@ -13,6 +13,7 @@ namespace DAL.Repositories
         private MyBooksDbContext _db;
         private GenreRepository _genreRepository;
         private BookRepository _bookRepository;
+        private MarkRepository _markRepository;
         private AuthorRepository _authorRepository;
         private UserRepository _userRepository;
         private BooksListRepository _listRepository;
@@ -48,6 +49,18 @@ namespace DAL.Repositories
                     _bookRepository = new BookRepository(_db);
                 }
                 return _bookRepository;
+            }
+        }
+
+        public IRepository<Mark> Marks
+        {
+            get
+            {
+                if (_markRepository == null)
+                {
+                    _markRepository = new MarkRepository(_db);
+                }
+                return _markRepository;
             }
         }
 

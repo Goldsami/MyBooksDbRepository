@@ -48,6 +48,9 @@ namespace DAL.Migrations
                     b.Property<int?>("BooksListId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("BookId");
 
                     b.HasIndex("AuthorId");
@@ -97,6 +100,31 @@ namespace DAL.Migrations
                     b.HasIndex("BookId");
 
                     b.ToTable("Genres");
+                });
+
+            modelBuilder.Entity("DAL.Entities.Mark", b =>
+                {
+                    b.Property<int>("MarkId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MarkValue")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MarkId");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Marks");
                 });
 
             modelBuilder.Entity("DAL.Entities.User", b =>
@@ -150,6 +178,25 @@ namespace DAL.Migrations
                     b.HasOne("DAL.Entities.Book", null)
                         .WithMany("Genres")
                         .HasForeignKey("BookId");
+                });
+
+            modelBuilder.Entity("DAL.Entities.Mark", b =>
+                {
+                    b.HasOne("DAL.Entities.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DAL.Entities.Author", b =>

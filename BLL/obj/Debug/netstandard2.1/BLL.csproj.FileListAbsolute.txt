@@ -1,0 +1,12 @@
+D:\Proga\Projects\MyBooksDb\BLL\bin\Debug\netstandard2.1\BLL.deps.json
+D:\Proga\Projects\MyBooksDb\BLL\bin\Debug\netstandard2.1\BLL.dll
+D:\Proga\Projects\MyBooksDb\BLL\bin\Debug\netstandard2.1\BLL.pdb
+D:\Proga\Projects\MyBooksDb\BLL\bin\Debug\netstandard2.1\DAL.dll
+D:\Proga\Projects\MyBooksDb\BLL\bin\Debug\netstandard2.1\DAL.pdb
+D:\Proga\Projects\MyBooksDb\BLL\obj\Debug\netstandard2.1\BLL.csprojAssemblyReference.cache
+D:\Proga\Projects\MyBooksDb\BLL\obj\Debug\netstandard2.1\BLL.AssemblyInfoInputs.cache
+D:\Proga\Projects\MyBooksDb\BLL\obj\Debug\netstandard2.1\BLL.AssemblyInfo.cs
+D:\Proga\Projects\MyBooksDb\BLL\obj\Debug\netstandard2.1\BLL.csproj.CoreCompileInputs.cache
+D:\Proga\Projects\MyBooksDb\BLL\obj\Debug\netstandard2.1\BLL.csproj.CopyComplete
+D:\Proga\Projects\MyBooksDb\BLL\obj\Debug\netstandard2.1\BLL.dll
+D:\Proga\Projects\MyBooksDb\BLL\obj\Debug\netstandard2.1\BLL.pdb

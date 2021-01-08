@@ -7,6 +7,7 @@ using BLL.DTOs;
 using BLL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
+using DAL.Repositories;
 
 namespace BLL.Services
 {
@@ -15,22 +16,28 @@ namespace BLL.Services
         private IUnitOfWork _db;
         private readonly IMapper _mapper;
 
+        public UserService()
+        {
+            _db = new UnitOfWork();
+            _mapper = MappingConfiguration.ConfigureMapper().CreateMapper();
+        }
+
         public UserService(IUnitOfWork uow)
         {
             _db = uow;
             _mapper = MappingConfiguration.ConfigureMapper().CreateMapper();
         }
 
-        public async Task CreateUserAsync(UserDTO user)
+        public async Task CreateAsync(UserDTO item)
         {
-            if (user == null)
+            if (item == null)
                 throw new NullReferenceException("User cannot be null");
 
-            var userToCreate = _mapper.Map<UserDTO, User>(user);
+            var itemToCreate = _mapper.Map<UserDTO, User>(item);
 
             try
             {
-                _db.Users.Create(userToCreate);
+                _db.Users.Create(itemToCreate);
                 await _db.SaveAsync();
             }
             catch (Exception e)
@@ -39,19 +46,19 @@ namespace BLL.Services
             }
         }
 
-        public async Task UpdateUserAsync(UserDTO user)
+        public async Task UpdateAsync(UserDTO item)
         {
-            if (user == null)
+            if (item == null)
                 throw new NullReferenceException("User cannot be null");
 
-            var userToUpdate = _db.Users.Get(user.UserId);
+            var itemToUpdate = _db.Users.Get(item.UserId);
 
-            if (userToUpdate == null)
+            if (itemToUpdate == null)
                 throw new NullReferenceException("User doesn't exist");
 
             try
             {
-                _db.Users.Update(userToUpdate);
+                _db.Users.Update(itemToUpdate);
                 await _db.SaveAsync();
             }
             catch (Exception e)
@@ -60,11 +67,11 @@ namespace BLL.Services
             }
         }
 
-        public async Task DeleteUserAsync(int userId)
+        public async Task DeleteAsync(int itemId)
         {
             try
             {
-                _db.Users.Delete(userId);
+                _db.Users.Delete(itemId);
                 await _db.SaveAsync();
             }
             catch (Exception e)
@@ -73,12 +80,12 @@ namespace BLL.Services
             }
         }
 
-        public IEnumerable<UserDTO> GetAllUsers()
+        public IEnumerable<UserDTO> GetAll()
         {
             try
             {
-                var users = _db.Users.GetAll();
-                return _mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(users);
+                var items = _db.Users.GetAll();
+                return _mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(items);
             }
             catch (Exception e)
             {
@@ -86,12 +93,12 @@ namespace BLL.Services
             }
         }
 
-        public UserDTO GetUser(int id)
+        public UserDTO Get(int id)
         {
             try
             {
-                var user = _db.Users.Get(id);
-                return _mapper.Map<User, UserDTO>(user);
+                var item = _db.Users.Get(id);
+                return _mapper.Map<User, UserDTO>(item);
             }
             catch (Exception e)
             {

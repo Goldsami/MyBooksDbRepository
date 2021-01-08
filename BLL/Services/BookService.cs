@@ -7,6 +7,7 @@ using BLL.DTOs;
 using BLL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
+using DAL.Repositories;
 
 namespace BLL.Services
 {
@@ -15,22 +16,28 @@ namespace BLL.Services
         private IUnitOfWork _db;
         private readonly IMapper _mapper;
 
+        public BookService()
+        {
+            _db = new UnitOfWork();
+            _mapper = MappingConfiguration.ConfigureMapper().CreateMapper();
+        }
+
         public BookService(IUnitOfWork uow)
         {
             _db = uow;
             _mapper = MappingConfiguration.ConfigureMapper().CreateMapper();
         }
 
-        public async Task CreateBookAsync(BookDTO book)
+        public async Task CreateAsync(BookDTO item)
         {
-            if (book == null)
+            if (item == null)
                 throw new NullReferenceException("Book cannot be null");
 
-            var bookToCreate = _mapper.Map<BookDTO, Book>(book);
+            var itemToCreate = _mapper.Map<BookDTO, Book>(item);
 
             try
             {
-                _db.Books.Create(bookToCreate);
+                _db.Books.Create(itemToCreate);
                 await _db.SaveAsync();
             }
             catch (Exception e)
@@ -39,19 +46,19 @@ namespace BLL.Services
             }
         }
 
-        public async Task UpdateBookAsync(BookDTO book)
+        public async Task UpdateAsync(BookDTO item)
         {
-            if (book == null)
+            if (item == null)
                 throw new NullReferenceException("Book cannot be null");
 
-            var bookToUpdate = _db.Books.Get(book.BookId);
+            var itemToUpdate = _db.Books.Get(item.BookId);
 
-            if (bookToUpdate == null)
+            if (itemToUpdate == null)
                 throw new NullReferenceException("Book doesn't exist");
 
             try
             {
-                _db.Books.Update(bookToUpdate);
+                _db.Books.Update(itemToUpdate);
                 await _db.SaveAsync();
             }
             catch (Exception e)
@@ -60,11 +67,11 @@ namespace BLL.Services
             }
         }
 
-        public async Task DeleteBookAsync(int bookId)
+        public async Task DeleteAsync(int itemId)
         {
             try
             {
-                _db.Books.Delete(bookId);
+                _db.Books.Delete(itemId);
                 await _db.SaveAsync();
             }
             catch (Exception e)
@@ -73,12 +80,12 @@ namespace BLL.Services
             }
         }
 
-        public IEnumerable<BookDTO> GetAllBooks()
+        public IEnumerable<BookDTO> GetAll()
         {
             try
             {
-                var books = _db.Books.GetAll();
-                return _mapper.Map<IEnumerable<Book>, IEnumerable<BookDTO>>(books);
+                var items = _db.Books.GetAll();
+                return _mapper.Map<IEnumerable<Book>, IEnumerable<BookDTO>>(items);
             }
             catch (Exception e)
             {
@@ -86,12 +93,12 @@ namespace BLL.Services
             }
         }
 
-        public BookDTO GetBook(int id)
+        public BookDTO Get(int id)
         {
             try
             {
-                var book = _db.Books.Get(id);
-                return _mapper.Map<Book, BookDTO>(book);
+                var item = _db.Books.Get(id);
+                return _mapper.Map<Book, BookDTO>(item);
             }
             catch (Exception e)
             {

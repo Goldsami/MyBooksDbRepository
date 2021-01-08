@@ -7,6 +7,7 @@ using BLL.DTOs;
 using BLL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
+using DAL.Repositories;
 
 namespace BLL.Services
 {
@@ -15,22 +16,28 @@ namespace BLL.Services
         private IUnitOfWork _db;
         private readonly IMapper _mapper;
 
+        public GenreService()
+        {
+            _db = new UnitOfWork();
+            _mapper = MappingConfiguration.ConfigureMapper().CreateMapper();
+        }
+
         public GenreService(IUnitOfWork uow)
         {
             _db = uow;
             _mapper = MappingConfiguration.ConfigureMapper().CreateMapper();
         }
 
-        public async Task CreateGenreAsync(GenreDTO genre)
+        public async Task CreateAsync(GenreDTO item)
         {
-            if (genre == null)
+            if (item == null)
                 throw new NullReferenceException("Genre cannot be null");
 
-            var genreToCreate = _mapper.Map<GenreDTO, Genre>(genre);
+            var itemToCreate = _mapper.Map<GenreDTO, Genre>(item);
 
             try
             {
-                _db.Genres.Create(genreToCreate);
+                _db.Genres.Create(itemToCreate);
                 await _db.SaveAsync();
             }
             catch (Exception e)
@@ -39,19 +46,19 @@ namespace BLL.Services
             }
         }
 
-        public async Task UpdateGenreAsync(GenreDTO genre)
+        public async Task UpdateAsync(GenreDTO item)
         {
-            if (genre == null)
+            if (item == null)
                 throw new NullReferenceException("Genre cannot be null");
 
-            var genreToUpdate = _db.Genres.Get(genre.GenreId);
+            var itemToUpdate = _db.Genres.Get(item.GenreId);
 
-            if (genreToUpdate == null)
+            if (itemToUpdate == null)
                 throw new NullReferenceException("Genre doesn't exist");
 
             try
             {
-                _db.Genres.Update(genreToUpdate);
+                _db.Genres.Update(itemToUpdate);
                 await _db.SaveAsync();
             }
             catch (Exception e)
@@ -60,11 +67,11 @@ namespace BLL.Services
             }
         }
 
-        public async Task DeleteGenreAsync(int genreId)
+        public async Task DeleteAsync(int itemId)
         {
             try
             {
-                _db.Genres.Delete(genreId);
+                _db.Genres.Delete(itemId);
                 await _db.SaveAsync();
             }
             catch (Exception e)
@@ -73,12 +80,12 @@ namespace BLL.Services
             }
         }
 
-        public IEnumerable<GenreDTO> GetAllGenres()
+        public IEnumerable<GenreDTO> GetAll()
         {
             try
             {
-                var genres = _db.Genres.GetAll();
-                return _mapper.Map<IEnumerable<Genre>, IEnumerable<GenreDTO>>(genres);
+                var items = _db.Genres.GetAll();
+                return _mapper.Map<IEnumerable<Genre>, IEnumerable<GenreDTO>>(items);
             }
             catch (Exception e)
             {
@@ -86,12 +93,12 @@ namespace BLL.Services
             }
         }
 
-        public GenreDTO GetGenre(int id)
+        public GenreDTO Get(int id)
         {
             try
             {
-                var genre = _db.Genres.Get(id);
-                return _mapper.Map<Genre, GenreDTO>(genre);
+                var item = _db.Genres.Get(id);
+                return _mapper.Map<Genre, GenreDTO>(item);
             }
             catch (Exception e)
             {

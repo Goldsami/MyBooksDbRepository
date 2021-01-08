@@ -22,7 +22,7 @@ namespace DAL.Context
         {
             optionsBuilder
                 .UseLazyLoadingProxies()
-                .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=mybooksdb;Trusted_Connection=True;");
+                .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=mybooksdb;MultipleActiveResultSets=true;Trusted_Connection=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

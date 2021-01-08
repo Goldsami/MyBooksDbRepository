@@ -6,12 +6,7 @@ using BLL.DTOs;
 
 namespace BLL.Interfaces
 {
-    interface IUserService
+    interface IUserService: IBooksDbService<UserDTO>
     {
-        UserDTO GetUser(int id);
-        IEnumerable<UserDTO> GetAllUsers();
-        Task CreateUserAsync(UserDTO user);
-        Task UpdateUserAsync(UserDTO user);
-        Task DeleteUserAsync(int userId);
     }
 }

@@ -65,3 +65,7 @@ D:\Proga\Projects\MyBooksDb\WebApi\obj\Debug\netcoreapp3.1\WebApi.pdb
 D:\Proga\Projects\MyBooksDb\WebApi\obj\Debug\netcoreapp3.1\WebApi.genruntimeconfig.cache
 D:\Proga\Projects\MyBooksDb\WebApi\bin\Debug\netcoreapp3.1\Humanizer.dll
 D:\Proga\Projects\MyBooksDb\WebApi\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
+D:\Proga\Projects\MyBooksDb\WebApi\bin\Debug\netcoreapp3.1\AutoMapper.dll
+D:\Proga\Projects\MyBooksDb\WebApi\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\Proga\Projects\MyBooksDb\WebApi\bin\Debug\netcoreapp3.1\BLL.dll
+D:\Proga\Projects\MyBooksDb\WebApi\bin\Debug\netcoreapp3.1\BLL.pdb

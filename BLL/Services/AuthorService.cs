@@ -3,6 +3,7 @@ using BLL.DTOs;
 using BLL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
+using DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,22 +16,28 @@ namespace BLL.Services
         private IUnitOfWork _db;
         private readonly IMapper _mapper;
 
+        public AuthorService()
+        {
+            _db = new UnitOfWork();
+            _mapper = MappingConfiguration.ConfigureMapper().CreateMapper();
+        }
+
         public AuthorService(IUnitOfWork uow)
         {
             _db = uow;
             _mapper = MappingConfiguration.ConfigureMapper().CreateMapper();
         }
 
-        public async Task CreateAuthorAsync(AuthorDTO author)
+        public async Task CreateAsync(AuthorDTO item)
         {
-            if (author == null)
+            if (item == null)
                 throw new NullReferenceException("Author cannot be null");
 
-            var authorToCreate = _mapper.Map<AuthorDTO, Author>(author);
+            var itemToCreate = _mapper.Map<AuthorDTO, Author>(item);
 
             try
             {
-                _db.Authors.Create(authorToCreate);
+                _db.Authors.Create(itemToCreate);
                 await _db.SaveAsync();
             }
             catch(Exception e)
@@ -39,19 +46,19 @@ namespace BLL.Services
             }
         }
 
-        public async Task UpdateAuthorAsync(AuthorDTO author)
+        public async Task UpdateAsync(AuthorDTO item)
         {
-            if (author == null)
+            if (item == null)
                 throw new NullReferenceException("Author cannot be null");
 
-            var authorToUpdate = _db.Authors.Get(author.AuthorId);
+            var itemToUpdate = _db.Authors.Get(item.AuthorId);
 
-            if (authorToUpdate == null)
+            if (itemToUpdate == null)
                 throw new NullReferenceException("Author doesn't exist");
 
             try
             {
-                _db.Authors.Update(authorToUpdate);
+                _db.Authors.Update(itemToUpdate);
                 await _db.SaveAsync();
             }
             catch(Exception e)
@@ -60,11 +67,11 @@ namespace BLL.Services
             }
         }
 
-        public async Task DeleteAuthorAsync(int authorId)
+        public async Task DeleteAsync(int itemId)
         {
             try
             {
-                _db.Authors.Delete(authorId);
+                _db.Authors.Delete(itemId);
                 await _db.SaveAsync();
             }
             catch (Exception e) 
@@ -73,12 +80,12 @@ namespace BLL.Services
             }
         }
 
-        public IEnumerable<AuthorDTO> GetAllAuthors()
+        public IEnumerable<AuthorDTO> GetAll()
         {
             try
             {
-                var authors = _db.Authors.GetAll();
-                return _mapper.Map<IEnumerable<Author>, IEnumerable<AuthorDTO>>(authors);
+                var items = _db.Authors.GetAll();
+                return _mapper.Map<IEnumerable<Author>, IEnumerable<AuthorDTO>>(items);
             }
             catch (Exception e)
             {
@@ -86,12 +93,12 @@ namespace BLL.Services
             }
         }
 
-        public AuthorDTO GetAuthor(int id)
+        public AuthorDTO Get(int id)
         {
             try
             {
-                var author = _db.Authors.Get(id);
-                return _mapper.Map<Author, AuthorDTO>(author);
+                var item = _db.Authors.Get(id);
+                return _mapper.Map<Author, AuthorDTO>(item);
             }
             catch(Exception e)
             {

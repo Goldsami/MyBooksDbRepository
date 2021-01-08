@@ -6,12 +6,7 @@ using BLL.DTOs;
 
 namespace BLL.Interfaces
 {
-    interface IGenreService
+    interface IGenreService: IBooksDbService<GenreDTO>
     {
-        GenreDTO GetGenre(int id);
-        IEnumerable<GenreDTO> GetAllGenres();
-        Task CreateGenreAsync(GenreDTO genre);
-        Task UpdateGenreAsync(GenreDTO genre);
-        Task DeleteGenreAsync(int genreId);
     }
 }

@@ -7,6 +7,7 @@ using BLL.DTOs;
 using BLL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
+using DAL.Repositories;
 
 namespace BLL.Services
 {
@@ -15,22 +16,28 @@ namespace BLL.Services
         private IUnitOfWork _db;
         private readonly IMapper _mapper;
 
+        public MarkService()
+        {
+            _db = new UnitOfWork();
+            _mapper = MappingConfiguration.ConfigureMapper().CreateMapper();
+        }
+
         public MarkService(IUnitOfWork uow)
         {
             _db = uow;
             _mapper = MappingConfiguration.ConfigureMapper().CreateMapper();
         }
 
-        public async Task CreateMarkAsync(MarkDTO mark)
+        public async Task CreateAsync(MarkDTO item)
         {
-            if (mark == null)
+            if (item == null)
                 throw new NullReferenceException("Mark cannot be null");
 
-            var markToCreate = _mapper.Map<MarkDTO, Mark>(mark);
+            var itemToCreate = _mapper.Map<MarkDTO, Mark>(item);
 
             try
             {
-                _db.Marks.Create(markToCreate);
+                _db.Marks.Create(itemToCreate);
                 await _db.SaveAsync();
             }
             catch (Exception e)
@@ -39,19 +46,19 @@ namespace BLL.Services
             }
         }
 
-        public async Task UpdateMarkAsync(MarkDTO mark)
+        public async Task UpdateAsync(MarkDTO item)
         {
-            if (mark == null)
+            if (item == null)
                 throw new NullReferenceException("Mark cannot be null");
 
-            var markToUpdate = _db.Marks.Get(mark.MarkId);
+            var itemToUpdate = _db.Marks.Get(item.MarkId);
 
-            if (markToUpdate == null)
+            if (itemToUpdate == null)
                 throw new NullReferenceException("Mark doesn't exist");
 
             try
             {
-                _db.Marks.Update(markToUpdate);
+                _db.Marks.Update(itemToUpdate);
                 await _db.SaveAsync();
             }
             catch (Exception e)
@@ -60,11 +67,11 @@ namespace BLL.Services
             }
         }
 
-        public async Task DeleteMarkAsync(int markId)
+        public async Task DeleteAsync(int itemId)
         {
             try
             {
-                _db.Marks.Delete(markId);
+                _db.Marks.Delete(itemId);
                 await _db.SaveAsync();
             }
             catch (Exception e)
@@ -73,12 +80,12 @@ namespace BLL.Services
             }
         }
 
-        public IEnumerable<MarkDTO> GetAllMarks()
+        public IEnumerable<MarkDTO> GetAll()
         {
             try
             {
-                var marks = _db.Marks.GetAll();
-                return _mapper.Map<IEnumerable<Mark>, IEnumerable<MarkDTO>>(marks);
+                var items = _db.Marks.GetAll();
+                return _mapper.Map<IEnumerable<Mark>, IEnumerable<MarkDTO>>(items);
             }
             catch (Exception e)
             {
@@ -86,12 +93,12 @@ namespace BLL.Services
             }
         }
 
-        public MarkDTO GetMark(int id)
+        public MarkDTO Get(int id)
         {
             try
             {
-                var mark = _db.Marks.Get(id);
-                return _mapper.Map<Mark, MarkDTO>(mark);
+                var item = _db.Marks.Get(id);
+                return _mapper.Map<Mark, MarkDTO>(item);
             }
             catch (Exception e)
             {

@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Interfaces
 {
-    interface IMarkService
+    interface IMarkService: IBooksDbService<MarkDTO>
     {
-        MarkDTO GetMark(int id);
-        IEnumerable<MarkDTO> GetAllMarks();
-        Task CreateMarkAsync(MarkDTO mark);
-        Task UpdateMarkAsync(MarkDTO mark);
-        Task DeleteMarkAsync(int markId);
     }
 }

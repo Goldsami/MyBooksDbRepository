@@ -10,8 +10,8 @@ namespace BLL.Interfaces
     {
         BooksListDTO GetBooksList(int id);
         IEnumerable<BooksListDTO> GetAllBooksLists();
-        Task<OperationDetails> CreateBooksListAsync(BooksListDTO booksList);
-        Task<OperationDetails> UpdateBooksListAsync(BooksListDTO booksList);
-        Task<OperationDetails> DeleteBooksListAsync(int booksListId);
+        Task CreateBooksListAsync(BooksListDTO booksList);
+        Task UpdateBooksListAsync(BooksListDTO booksList);
+        Task DeleteBooksListAsync(int booksListId);
     }
 }

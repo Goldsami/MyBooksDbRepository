@@ -2,36 +2,101 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using BLL.DTOs;
 using BLL.Interfaces;
+using DAL.Entities;
+using DAL.Interfaces;
 
 namespace BLL.Services
 {
     public class UserService : IUserService
     {
-        public Task<OperationDetails> CreateUserAsync(UserDTO user)
+        private IUnitOfWork _db;
+        private readonly IMapper _mapper;
+
+        public UserService(IUnitOfWork uow)
         {
-            throw new NotImplementedException();
+            _db = uow;
+            _mapper = MappingConfiguration.ConfigureMapper().CreateMapper();
         }
 
-        public Task<OperationDetails> DeleteUserAsync(int userId)
+        public async Task CreateUserAsync(UserDTO user)
         {
-            throw new NotImplementedException();
+            if (user == null)
+                throw new NullReferenceException("User cannot be null");
+
+            var userToCreate = _mapper.Map<UserDTO, User>(user);
+
+            try
+            {
+                _db.Users.Create(userToCreate);
+                await _db.SaveAsync();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task UpdateUserAsync(UserDTO user)
+        {
+            if (user == null)
+                throw new NullReferenceException("User cannot be null");
+
+            var userToUpdate = _db.Users.Get(user.UserId);
+
+            if (userToUpdate == null)
+                throw new NullReferenceException("User doesn't exist");
+
+            try
+            {
+                _db.Users.Update(userToUpdate);
+                await _db.SaveAsync();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task DeleteUserAsync(int userId)
+        {
+            try
+            {
+                _db.Users.Delete(userId);
+                await _db.SaveAsync();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public IEnumerable<UserDTO> GetAllUsers()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var users = _db.Users.GetAll();
+                return _mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(users);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public UserDTO GetUser(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<OperationDetails> UpdateUserAsync(UserDTO user)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                var user = _db.Users.Get(id);
+                return _mapper.Map<User, UserDTO>(user);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

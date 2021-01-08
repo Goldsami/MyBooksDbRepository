@@ -10,8 +10,8 @@ namespace BLL.Interfaces
     {
         MarkDTO GetMark(int id);
         IEnumerable<MarkDTO> GetAllMarks();
-        Task<OperationDetails> CreateMarkAsync(MarkDTO mark);
-        Task<OperationDetails> UpdateMarkAsync(MarkDTO mark);
-        Task<OperationDetails> DeleteMarkAsync(int markId);
+        Task CreateMarkAsync(MarkDTO mark);
+        Task UpdateMarkAsync(MarkDTO mark);
+        Task DeleteMarkAsync(int markId);
     }
 }

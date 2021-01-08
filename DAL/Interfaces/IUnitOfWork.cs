@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Interfaces
 {
-    interface IUnitOfWork: IDisposable
+    public interface IUnitOfWork: IDisposable
     {
         IRepository<Genre> Genres { get; }
         IRepository<Book> Books { get; }

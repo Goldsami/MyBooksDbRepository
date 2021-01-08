@@ -9,6 +9,6 @@ namespace BLL.DTOs
         public int MarkId { get; set; }
         public int MarkValue { get; set; }
         public int BookId { get; set; }
-        public int UserId { get; set; }
+        public UserDTO User { get; set; }
     }
 }

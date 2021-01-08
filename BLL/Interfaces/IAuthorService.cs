@@ -10,8 +10,8 @@ namespace BLL.Interfaces
     {
         AuthorDTO GetAuthor(int id);
         IEnumerable<AuthorDTO> GetAllAuthors();
-        Task<OperationDetails> CreateAuthorAsync(AuthorDTO author);
-        Task<OperationDetails> UpdateAuthorAsync(AuthorDTO author);
-        Task<OperationDetails> DeleteAuthorAsync(int authorId);
+        Task CreateAuthorAsync(AuthorDTO author);
+        Task UpdateAuthorAsync(AuthorDTO author);
+        Task DeleteAuthorAsync(int authorId);
     }
 }

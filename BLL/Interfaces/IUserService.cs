@@ -10,8 +10,8 @@ namespace BLL.Interfaces
     {
         UserDTO GetUser(int id);
         IEnumerable<UserDTO> GetAllUsers();
-        Task<OperationDetails> CreateUserAsync(UserDTO user);
-        Task<OperationDetails> UpdateUserAsync(UserDTO user);
-        Task<OperationDetails> DeleteUserAsync(int userId);
+        Task CreateUserAsync(UserDTO user);
+        Task UpdateUserAsync(UserDTO user);
+        Task DeleteUserAsync(int userId);
     }
 }

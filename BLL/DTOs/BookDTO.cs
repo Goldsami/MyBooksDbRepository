@@ -9,7 +9,8 @@ namespace BLL.DTOs
         public int BookId { get; set; }
         public string ImagePath { get; set; }
 
-        public int AuthorId { get; set; }
-        public virtual IEnumerable<int> GenreIds { get; set; }
+        public AuthorDTO Author { get; set; }
+        public virtual IEnumerable<GenreDTO> Genres { get; set; }
+        public virtual IEnumerable<MarkDTO> Marks { get; set; }
     }
 }

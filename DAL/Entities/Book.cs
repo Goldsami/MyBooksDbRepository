@@ -12,5 +12,6 @@ namespace DAL.Entities
         public int AuthorId { get; set; }
         public virtual Author Author { get; set; }
         public virtual IEnumerable<Genre> Genres { get; set; }
+        public virtual IEnumerable<Mark> Marks { get; set; }
     }
 }

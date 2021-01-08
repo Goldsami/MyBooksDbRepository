@@ -10,8 +10,8 @@ namespace BLL.Interfaces
     {
         GenreDTO GetGenre(int id);
         IEnumerable<GenreDTO> GetAllGenres();
-        Task<OperationDetails> CreateGenreAsync(GenreDTO genre);
-        Task<OperationDetails> UpdateGenreAsync(GenreDTO genre);
-        Task<OperationDetails> DeleteGenreAsync(int genreId);
+        Task CreateGenreAsync(GenreDTO genre);
+        Task UpdateGenreAsync(GenreDTO genre);
+        Task DeleteGenreAsync(int genreId);
     }
 }

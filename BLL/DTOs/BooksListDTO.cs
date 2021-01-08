@@ -8,7 +8,7 @@ namespace BLL.DTOs
     {
         public int BooksListId { get; set; }
         public string Name { get; set; }
-        public int UserId { get; set; }
-        public virtual IEnumerable<int> BookIds { get; set; }
+        public UserDTO User { get; set; }
+        public virtual IEnumerable<BookDTO> Books { get; set; }
     }
 }

@@ -1,5 +1,8 @@
-﻿using BLL.DTOs;
+﻿using AutoMapper;
+using BLL.DTOs;
 using BLL.Interfaces;
+using DAL.Entities;
+using DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,29 +12,91 @@ namespace BLL.Services
 {
     public class AuthorService : IAuthorService
     {
-        public Task<OperationDetails> CreateAuthorAsync(AuthorDTO author)
+        private IUnitOfWork _db;
+        private readonly IMapper _mapper;
+
+        public AuthorService(IUnitOfWork uow)
         {
-            throw new NotImplementedException();
+            _db = uow;
+            _mapper = MappingConfiguration.ConfigureMapper().CreateMapper();
         }
 
-        public Task<OperationDetails> DeleteAuthorAsync(int authorId)
+        public async Task CreateAuthorAsync(AuthorDTO author)
         {
-            throw new NotImplementedException();
+            if (author == null)
+                throw new NullReferenceException("Author cannot be null");
+
+            var authorToCreate = _mapper.Map<AuthorDTO, Author>(author);
+
+            try
+            {
+                _db.Authors.Create(authorToCreate);
+                await _db.SaveAsync();
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task UpdateAuthorAsync(AuthorDTO author)
+        {
+            if (author == null)
+                throw new NullReferenceException("Author cannot be null");
+
+            var authorToUpdate = _db.Authors.Get(author.AuthorId);
+
+            if (authorToUpdate == null)
+                throw new NullReferenceException("Author doesn't exist");
+
+            try
+            {
+                _db.Authors.Update(authorToUpdate);
+                await _db.SaveAsync();
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task DeleteAuthorAsync(int authorId)
+        {
+            try
+            {
+                _db.Authors.Delete(authorId);
+                await _db.SaveAsync();
+            }
+            catch (Exception e) 
+            {
+                throw e;
+            }
         }
 
         public IEnumerable<AuthorDTO> GetAllAuthors()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var authors = _db.Authors.GetAll();
+                return _mapper.Map<IEnumerable<Author>, IEnumerable<AuthorDTO>>(authors);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public AuthorDTO GetAuthor(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<OperationDetails> UpdateAuthorAsync(AuthorDTO author)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                var author = _db.Authors.Get(id);
+                return _mapper.Map<Author, AuthorDTO>(author);
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

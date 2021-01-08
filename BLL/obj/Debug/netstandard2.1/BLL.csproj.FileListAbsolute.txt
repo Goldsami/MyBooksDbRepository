@@ -9,3 +9,4 @@ D:\Proga\Projects\MyBooksDb\BLL\obj\Debug\netstandard2.1\BLL.AssemblyInfo.cs
 D:\Proga\Projects\MyBooksDb\BLL\obj\Debug\netstandard2.1\BLL.csproj.CopyComplete
 D:\Proga\Projects\MyBooksDb\BLL\obj\Debug\netstandard2.1\BLL.dll
 D:\Proga\Projects\MyBooksDb\BLL\obj\Debug\netstandard2.1\BLL.pdb
+D:\Proga\Projects\MyBooksDb\BLL\obj\Debug\netstandard2.1\BLL.csproj.CoreCompileInputs.cache

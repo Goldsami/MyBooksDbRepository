@@ -30,6 +30,12 @@ namespace DAL.Context
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.NickName)
                 .IsUnique();
+
+            modelBuilder.Entity<Book>()
+                .HasOne(b => b.Author)
+                .WithMany(a => a.Books)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

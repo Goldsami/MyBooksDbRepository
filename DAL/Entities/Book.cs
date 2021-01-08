@@ -14,6 +14,7 @@ namespace DAL.Entities
         public DateTime Date { get; set; }
         public string ImagePath { get; set; }
 
+        [Required]
         public int AuthorId { get; set; }
         public virtual Author Author { get; set; }
         public virtual IEnumerable<Genre> Genres { get; set; }

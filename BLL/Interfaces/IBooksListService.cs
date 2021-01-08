@@ -6,7 +6,7 @@ using BLL.DTOs;
 
 namespace BLL.Interfaces
 {
-    interface IBooksListService: IBooksDbService<BooksListDTO>
+    public interface IBooksListService : IBooksDbService<BooksListDTO>
     {
     }
 }

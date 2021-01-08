@@ -21,7 +21,7 @@ namespace BLL
 
                 c.CreateMap<Book, BookDTO>();
 
-                c.CreateMap<Author, AuthorDTO>();
+                c.CreateMap<Author, AuthorDTO>().ReverseMap();
 
                 c.CreateMap<User, UserDTO>();
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Interfaces
 {
-    interface IMarkService: IBooksDbService<MarkDTO>
+    public interface IMarkService : IBooksDbService<MarkDTO>
     {
     }
 }

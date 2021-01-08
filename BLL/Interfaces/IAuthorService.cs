@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Interfaces
 {
-    interface IAuthorService: IBooksDbService<AuthorDTO>
+    public interface IAuthorService: IBooksDbService<AuthorDTO>
     {
     }
 }

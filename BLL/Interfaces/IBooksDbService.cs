@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Interfaces
 {
-    interface IBooksDbService<T>
+    public interface IBooksDbService<T>
     {
         Task CreateAsync(T item);
         Task UpdateAsync(T item);
